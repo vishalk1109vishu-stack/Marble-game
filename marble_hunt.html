@@ -1450,4 +1450,194 @@
                             this.canGuess = false;
                             this.scores[this.currentLevel] = false;
                             setTimeout(() => {
-                                this.showModal('😈', "Trapped!
+                                this.showModal('😈', "Trapped!", "Did you really think Level 4 would be that easy?");
+                                document.getElementById('nextBtn').style.display = 'inline-block';
+                            }, 1200);
+                        } else {
+                            setTimeout(() => {
+                                units[index].classList.remove('open', 'wrong');
+                                this.setStatus(null, 'Try again! ' + (3 - this.level4Attempts) + ' left...');
+                            }, 1500);
+                        }
+                        return;
+                    } else if (!isCorrect) {
+                        units[index].classList.add('open', 'wrong');
+                        if (this.level4Attempts >= cfg.attempts || result.gameOver) {
+                            this.canGuess = false;
+                            this.scores[this.currentLevel] = false;
+                            this.setStatus('wrong');
+                            setTimeout(() => {
+                                units[actualPos].classList.add('open', 'correct');
+                                const m = document.getElementById('marble-' + actualPos);
+                                if (m) m.classList.add('bounce');
+                            }, 500);
+                            setTimeout(() => {
+                                this.showModal('😵', "Failed!", "Level 4 conquered you!");
+                                document.getElementById('nextBtn').style.display = 'inline-block';
+                            }, 2000);
+                        } else {
+                            setTimeout(() => {
+                                units[index].classList.remove('open', 'wrong');
+                                this.setStatus(null, 'Wrong! ' + (3 - this.level4Attempts) + ' left...');
+                            }, 1000);
+                        }
+                        return;
+                    }
+                }
+
+                this.canGuess = false;
+                units[index].classList.add('open');
+
+                if (isCorrect) {
+                    this.scores[this.currentLevel] = true;
+                    units[index].classList.add('correct');
+                    const m = document.getElementById('marble-' + actualPos);
+                    if (m) m.classList.add('bounce');
+                    this.setStatus('correct');
+                    this.createConfetti();
+                    setTimeout(() => {
+                        this.showModal('🎯', "Bullseye!", "Your eyes are sharper than a hawk!");
+                        document.getElementById('nextBtn').style.display = 'inline-block';
+                    }, 1500);
+                } else {
+                    this.scores[this.currentLevel] = false;
+                    units[index].classList.add('wrong', 'shaking');
+                    this.setStatus('wrong');
+                    setTimeout(() => {
+                        units[actualPos].classList.add('open', 'correct');
+                        const m = document.getElementById('marble-' + actualPos);
+                        if (m) m.classList.add('bounce');
+                    }, 500);
+                    setTimeout(() => {
+                        this.showModal('❌', "Wrong!", "My grandma guesses better than you!");
+                        document.getElementById('nextBtn').style.display = 'inline-block';
+                    }, 2000);
+                }
+            }
+
+            renderAttemptsDots() {
+                const dots = document.getElementById('attemptsDots');
+                dots.innerHTML = '';
+                for (let i = 0; i < 3; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'attempt-dot';
+                    if (i < this.level4Attempts) dot.classList.add('used');
+                    dots.appendChild(dot);
+                }
+            }
+
+            async nextLevel() {
+                this.closeModal();
+                document.getElementById('nextBtn').style.display = 'none';
+                this.currentLevel++;
+
+                if (this.currentLevel >= CONFIG.levels.length) {
+                    await this.showFinalResults();
+                    return;
+                }
+
+                await this.api.nextLevel();
+                this.renderLevelTrack();
+                this.startLevel();
+            }
+
+            async showFinalResults() {
+                document.getElementById('gameArea').style.display = 'none';
+                document.getElementById('attemptsPanel').classList.remove('active');
+
+                const finalData = await this.api.finalScore();
+                const totalScore = finalData.totalScore !== undefined ? finalData.totalScore : this.scores.filter(s => s === true).length;
+
+                const board = document.getElementById('scoreBoard');
+                const content = document.getElementById('scoreContent');
+                let html = '';
+
+                CONFIG.levels.forEach((lvl, idx) => {
+                    let status = '⏳ Pending';
+                    let statusClass = '';
+                    if (this.scores[idx] === true) {
+                        status = '✅ Correct';
+                        statusClass = 'correct';
+                    } else if (this.scores[idx] === false) {
+                        status = '❌ Wrong';
+                        statusClass = 'wrong';
+                    }
+                    html += '<div class="score-row"><span>Level ' + lvl.level + '</span><span class="score-status ' + statusClass + '">' + status + '</span></div>';
+                });
+
+                html += '<div class="score-row"><span>Total Score</span><span>' + totalScore + ' / 4</span></div>';
+                content.innerHTML = html;
+                board.classList.add('active');
+
+                const final = document.getElementById('finalMessage');
+                const cfg = CONFIG.messages.final;
+                let result;
+                if (totalScore >= 3) result = cfg.score3;
+                else if (totalScore === 2) result = cfg.score2;
+                else if (totalScore === 1) result = cfg.score1;
+                else result = cfg.score0;
+
+                final.innerHTML = '<div class="final-emoji">' + result.emoji + '</div><div class="final-title">' + result.title + '</div><div class="final-text">' + result.text + '</div>';
+                final.style.display = 'block';
+
+                document.getElementById('restartBtn').style.display = 'inline-block';
+                document.getElementById('devInfo').style.display = 'block';
+
+                if (totalScore >= 3) this.createConfetti();
+            }
+
+            restartGame() {
+                this.closeModal();
+                this.currentLevel = 0;
+                this.scores = [null, null, null, null];
+                this.gameActive = false;
+                this.api = new MarbleAPI();
+
+                document.getElementById('gameArea').style.display = 'flex';
+                document.getElementById('scoreBoard').classList.remove('active');
+                document.getElementById('finalMessage').style.display = 'none';
+                document.getElementById('restartBtn').style.display = 'none';
+                document.getElementById('startBtn').style.display = 'inline-block';
+                document.getElementById('boxesWrap').innerHTML = '';
+                document.getElementById('attemptsPanel').classList.remove('active');
+                document.getElementById('timerWrap').classList.remove('active');
+                document.getElementById('devInfo').style.display = 'block';
+
+                this.setStatus(null, "Welcome! Click START to begin");
+                this.renderLevelTrack();
+            }
+
+            showModal(emoji, title, message) {
+                document.getElementById('modalEmoji').textContent = emoji;
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalMessage').textContent = message;
+                document.getElementById('modalOverlay').classList.add('active');
+            }
+
+            closeModal() {
+                document.getElementById('modalOverlay').classList.remove('active');
+            }
+
+            createConfetti() {
+                const container = document.getElementById('confettiWrap');
+                const colors = ['#f472b6', '#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#06b6d4'];
+                for (let i = 0; i < 60; i++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'confetti-piece';
+                    piece.style.left = Math.random() * 100 + '%';
+                    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    piece.style.width = (6 + Math.random() * 10) + 'px';
+                    piece.style.height = (6 + Math.random() * 10) + 'px';
+                    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    piece.style.animationDelay = Math.random() * 2 + 's';
+                    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    container.appendChild(piece);
+                    setTimeout(() => piece.remove(), 4000);
+                }
+            }
+        }
+
+        const game = new GameController();
+    </script>
+</body>
+</html>
