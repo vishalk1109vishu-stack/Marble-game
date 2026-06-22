@@ -7,74 +7,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f0f4f8;
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --bg-solid: #ffffff;
-            --text: #1a202c;
-            --text-light: #718096;
-            --accent: #6366f1;
-            --accent-light: #818cf8;
-            --accent-dark: #4f46e5;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+            --text: #1e1b4b;
+            --text-light: #64748b;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #e0e7ff 0%, #f0f9ff 50%, #fef3c7 100%);
+            background: linear-gradient(135deg, #fef9c3 0%, #fde68a 20%, #fed7aa 40%, #fecaca 60%, #e9d5ff 80%, #bfdbfe 100%);
+            background-size: 400% 400%;
+            animation: bgShift 15s ease infinite;
             min-height: 100vh;
             overflow-x: hidden;
             color: var(--text);
             -webkit-tap-highlight-color: transparent;
         }
 
-        .bg-mesh {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 10%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
-            animation: meshMove 20s ease-in-out infinite alternate;
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes meshMove {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-20px, 10px) scale(1.02); }
-            100% { transform: translate(20px, -10px) scale(1); }
-        }
-
-        .orb {
+        .blob {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(60px);
             pointer-events: none;
             z-index: 0;
-            opacity: 0.4;
-            animation: orbFloat 15s ease-in-out infinite;
+            opacity: 0.5;
+            animation: blobFloat 20s ease-in-out infinite;
         }
-        .orb-1 { width: 300px; height: 300px; background: rgba(99, 102, 241, 0.2); top: -100px; left: -100px; animation-delay: 0s; }
-        .orb-2 { width: 250px; height: 250px; background: rgba(245, 158, 11, 0.15); bottom: -50px; right: -50px; animation-delay: -5s; }
-        .orb-3 { width: 200px; height: 200px; background: rgba(16, 185, 129, 0.12); top: 50%; left: 50%; animation-delay: -10s; }
+        .blob-1 { width: 350px; height: 350px; background: #f472b6; top: -100px; left: -100px; animation-delay: 0s; }
+        .blob-2 { width: 300px; height: 300px; background: #60a5fa; bottom: -80px; right: -80px; animation-delay: -7s; }
+        .blob-3 { width: 250px; height: 250px; background: #34d399; top: 40%; left: 60%; animation-delay: -14s; }
+        .blob-4 { width: 200px; height: 200px; background: #fbbf24; top: 60%; left: 10%; animation-delay: -3s; }
 
-        @keyframes orbFloat {
+        @keyframes blobFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+            33% { transform: translate(40px, -40px) scale(1.15); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
         }
 
         .game-wrap {
             position: relative;
             z-index: 1;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 20px;
             min-height: 100vh;
@@ -84,85 +66,90 @@
 
         .header {
             text-align: center;
-            padding: 30px 0 20px;
+            padding: 25px 0 15px;
         }
 
         .logo {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark), #8b5cf6);
+            background: linear-gradient(90deg, #db2777, #7c3aed, #2563eb, #059669, #d97706);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -2px;
-            line-height: 1.1;
-            animation: logoPulse 3s ease-in-out infinite;
+            animation: rainbowText 5s ease infinite;
+            text-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
         }
 
-        @keyframes logoPulse {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.02); filter: brightness(1.1); }
+        @keyframes rainbowText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .tagline {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            font-weight: 400;
-            margin-top: 8px;
+            font-size: 1rem;
+            color: #475569;
+            font-weight: 500;
+            margin-top: 6px;
             letter-spacing: 0.5px;
         }
+
+        .connection-status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .conn-online { background: rgba(16, 185, 129, 0.15); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .conn-offline { background: rgba(239, 68, 68, 0.15); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .conn-local { background: rgba(245, 158, 11, 0.15); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.3); }
 
         .level-track {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin: 25px 0;
+            gap: 10px;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
 
         .level-pill {
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 50px;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
             border: 2px solid transparent;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 800;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-sm);
-            color: var(--text-light);
+            color: #94a3b8;
             position: relative;
             overflow: hidden;
         }
 
-        .level-pill::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
         .level-pill.active {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: scale(1.08);
-            box-shadow: var(--shadow-glow);
+            border-color: #7c3aed;
+            color: #7c3aed;
+            background: rgba(124, 58, 237, 0.1);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
         }
-
-        .level-pill.active::before { opacity: 0.1; }
 
         .level-pill.completed {
-            border-color: var(--success);
-            color: var(--success);
+            border-color: #10b981;
+            color: #10b981;
             background: rgba(16, 185, 129, 0.1);
         }
 
         .level-pill.failed {
-            border-color: var(--danger);
-            color: var(--danger);
+            border-color: #ef4444;
+            color: #ef4444;
             background: rgba(239, 68, 68, 0.1);
         }
 
@@ -176,36 +163,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px 0;
-            min-height: 400px;
+            padding: 15px 0;
+            min-height: 380px;
         }
 
         .status-text {
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             text-align: center;
-            margin-bottom: 40px;
-            min-height: 50px;
+            margin-bottom: 30px;
+            min-height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text);
             padding: 0 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .status-text.animate {
-            animation: statusSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: popIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes statusSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(15px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .timer-wrap {
             width: 100%;
-            max-width: 400px;
-            margin-bottom: 30px;
+            max-width: 380px;
+            margin-bottom: 25px;
             opacity: 0;
             transition: opacity 0.3s ease;
             height: 0;
@@ -220,292 +208,366 @@
         .timer-label {
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #64748b;
+            margin-bottom: 5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .timer-bar-bg {
-            height: 6px;
-            background: rgba(0,0,0,0.05);
-            border-radius: 10px;
+            height: 8px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
         }
 
         .timer-bar-fill {
             height: 100%;
-            border-radius: 10px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 20px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b);
+            background-size: 200% 100%;
             transition: width 0.1s linear, background 0.3s ease;
             width: 100%;
+            animation: timerShine 2s ease infinite;
         }
 
-        .timer-bar-fill.warning { background: linear-gradient(90deg, var(--warning), #fbbf24); }
-        .timer-bar-fill.danger { background: linear-gradient(90deg, var(--danger), #f87171); }
+        @keyframes timerShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .timer-bar-fill.warning { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+        .timer-bar-fill.danger { background: linear-gradient(90deg, #ef4444, #dc2626); animation: timerPulse 0.5s ease infinite; }
+
+        @keyframes timerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
 
         .boxes-wrap {
             display: flex;
-            gap: 40px;
+            gap: 35px;
             justify-content: center;
             align-items: flex-end;
-            min-height: 280px;
-            padding: 30px;
+            min-height: 260px;
+            padding: 25px;
             position: relative;
-            perspective: 1200px;
+            perspective: 1000px;
             flex-wrap: wrap;
         }
 
-        .box-unit {
+        .gift-box {
             position: relative;
-            width: 160px;
-            height: 200px;
+            width: 140px;
+            height: 140px;
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
-        .box-unit:hover:not(.disabled) {
-            transform: translateY(-8px) scale(1.02);
+        .gift-box:hover:not(.disabled) {
+            transform: translateY(-10px) scale(1.03);
         }
 
-        .box-unit.disabled {
+        .gift-box.disabled {
             cursor: not-allowed;
             opacity: 0.6;
         }
 
-        .box-unit.shaking {
-            animation: boxShake 0.4s ease-in-out;
+        .gift-box.shaking {
+            animation: giftShake 0.5s ease-in-out;
         }
 
-        @keyframes boxShake {
+        @keyframes giftShake {
             0%, 100% { transform: translateX(0) rotate(0deg); }
-            20% { transform: translateX(-8px) rotate(-2deg); }
-            40% { transform: translateX(8px) rotate(2deg); }
-            60% { transform: translateX(-4px) rotate(-1deg); }
-            80% { transform: translateX(4px) rotate(1deg); }
+            15% { transform: translateX(-10px) rotate(-3deg); }
+            30% { transform: translateX(10px) rotate(3deg); }
+            45% { transform: translateX(-6px) rotate(-2deg); }
+            60% { transform: translateX(6px) rotate(2deg); }
+            75% { transform: translateX(-3px) rotate(-1deg); }
+            90% { transform: translateX(3px) rotate(1deg); }
         }
 
-        .box-body {
+        .box-body-3d {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            height: 160px;
-            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 4px 4px 16px 16px;
-            box-shadow: 
-                0 4px 6px rgba(0,0,0,0.07),
-                0 10px 20px rgba(0,0,0,0.05),
-                inset 0 1px 0 rgba(255,255,255,0.8),
-                inset 0 -2px 4px rgba(0,0,0,0.03);
-            border: 1px solid rgba(203, 213, 225, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 140px;
+            height: 120px;
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+        }
+
+        .box-face {
+            position: absolute;
+            width: 140px;
+            height: 120px;
+            border-radius: 4px;
+        }
+
+        .box-face.front {
+            transform: translateZ(70px);
+            background: linear-gradient(135deg, var(--box-color-light), var(--box-color));
+            border: 2px solid rgba(255,255,255,0.3);
             overflow: hidden;
-            transition: all 0.3s ease;
         }
 
-        .box-body::before {
+        .box-face.front::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 30px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent);
-            border-radius: 4px 4px 0 0;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 24px; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
 
-        .box-body::after {
+        .box-face.front::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 20px;
-            background: linear-gradient(0deg, rgba(0,0,0,0.03), transparent);
-            border-radius: 0 0 16px 16px;
+            top: 50%; left: 0; transform: translateY(-50%);
+            width: 100%; height: 24px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
 
-        .box-lid {
+        .box-bow {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
-            border-radius: 12px 12px 4px 4px;
-            box-shadow: 
-                0 2px 8px rgba(0,0,0,0.08),
-                0 4px 12px rgba(0,0,0,0.04),
-                inset 0 1px 0 rgba(255,255,255,1);
-            border: 1px solid rgba(203, 213, 225, 0.6);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) translateZ(2px);
+            width: 36px; height: 36px;
             z-index: 10;
-            transform-origin: bottom center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.3rem;
-            color: var(--text-light);
-            letter-spacing: 1px;
         }
 
-        .box-lid::after {
+        .box-bow::before, .box-bow::after {
             content: '';
             position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 6px;
-            background: linear-gradient(180deg, #cbd5e1, #94a3b8);
-            border-radius: 3px;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0.5));
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            top: 50%;
+        }
+        .box-bow::before { left: 0; transform: translateY(-50%) rotate(-20deg); }
+        .box-bow::after { right: 0; transform: translateY(-50%) rotate(20deg); }
+
+        .box-bow-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff, rgba(255,255,255,0.6));
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            z-index: 11;
         }
 
-        .box-number {
+        .box-face.right {
+            transform: rotateY(90deg) translateZ(70px);
+            width: 140px;
+            background: linear-gradient(135deg, var(--box-color-dark), var(--box-color));
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .box-face.left {
+            transform: rotateY(-90deg) translateZ(70px);
+            width: 140px;
+            background: linear-gradient(135deg, var(--box-color-dark), var(--box-color));
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .box-face.bottom {
+            transform: rotateX(-90deg) translateZ(50px);
+            height: 140px;
+            background: var(--box-color-dark);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .box-lid-3d {
             position: absolute;
             top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 800;
-            font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            left: -5px;
+            width: 150px;
+            height: 30px;
+            transform-style: preserve-3d;
+            transform-origin: bottom center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 20;
-            transition: all 0.3s ease;
         }
 
-        .box-unit.open .box-lid {
-            transform: rotateX(-120deg) translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .box-unit.open .box-body {
-            background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
-            box-shadow: 
-                0 4px 6px rgba(0,0,0,0.07),
-                0 0 30px rgba(245, 158, 11, 0.2),
-                inset 0 1px 0 rgba(255,255,255,0.8);
-        }
-
-        .box-unit.correct .box-body {
-            background: linear-gradient(180deg, #d1fae5 0%, #a7f3d0 100%);
-            box-shadow: 
-                0 4px 6px rgba(0,0,0,0.07),
-                0 0 40px rgba(16, 185, 129, 0.3),
-                inset 0 1px 0 rgba(255,255,255,0.8);
-        }
-
-        .box-unit.wrong .box-body {
-            background: linear-gradient(180deg, #fee2e2 0%, #fecaca 100%);
-            box-shadow: 
-                0 4px 6px rgba(0,0,0,0.07),
-                0 0 40px rgba(239, 68, 68, 0.3),
-                inset 0 1px 0 rgba(255,255,255,0.8);
-        }
-
-        .box-unit.correct .box-number {
-            background: linear-gradient(135deg, var(--success), #059669);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-        }
-
-        .box-unit.wrong .box-number {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-        }
-
-        .marble {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: 
-                radial-gradient(circle at 35% 35%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 50%),
-                radial-gradient(circle at 50% 50%, #60a5fa 0%, #3b82f6 40%, #1d4ed8 100%);
-            box-shadow: 
-                0 4px 15px rgba(59, 130, 246, 0.4),
-                0 8px 25px rgba(59, 130, 246, 0.2),
-                inset -3px -3px 8px rgba(0,0,0,0.2);
+        .lid-face {
             position: absolute;
-            bottom: 35px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 5;
+            width: 150px;
+            height: 30px;
+            border-radius: 4px;
         }
 
-        .box-unit.open .marble {
-            transform: translateX(-50%) scale(1);
+        .lid-face.top {
+            transform: translateZ(70px);
+            background: linear-gradient(135deg, var(--box-color-light), var(--box-color));
+            border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .box-unit.open .marble.bounce {
-            animation: marbleBounce 0.6s ease;
-        }
-
-        @keyframes marbleBounce {
-            0% { transform: translateX(-50%) scale(0) translateY(30px); }
-            50% { transform: translateX(-50%) scale(1.2) translateY(-15px); }
-            100% { transform: translateX(-50%) scale(1) translateY(0); }
-        }
-
-        .box-shadow {
+        .lid-face.top::before {
+            content: '';
             position: absolute;
-            bottom: -15px;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 26px; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+        }
+
+        .lid-face.top::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; transform: translateY(-50%);
+            width: 100%; height: 26px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+        }
+
+        .lid-face.front-lid {
+            transform: translateZ(70px) translateY(0);
+            height: 15px;
+            background: linear-gradient(180deg, var(--box-color-light), var(--box-color));
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .gift-box[data-color="0"] { --box-color: #f43f5e; --box-color-light: #fb7185; --box-color-dark: #e11d48; }
+        .gift-box[data-color="1"] { --box-color: #3b82f6; --box-color-light: #60a5fa; --box-color-dark: #2563eb; }
+        .gift-box[data-color="2"] { --box-color: #10b981; --box-color-light: #34d399; --box-color-dark: #059669; }
+        .gift-box[data-color="3"] { --box-color: #8b5cf6; --box-color-light: #a78bfa; --box-color-dark: #7c3aed; }
+        .gift-box[data-color="4"] { --box-color: #f59e0b; --box-color-light: #fbbf24; --box-color-dark: #d97706; }
+
+        .gift-box.open .box-lid-3d {
+            transform: rotateX(-130deg) translateY(-20px);
+        }
+
+        .gift-box.open .box-body-3d {
+            filter: brightness(1.1);
+        }
+
+        .gift-box.correct .box-face.front {
+            background: linear-gradient(135deg, #6ee7b7, #34d399);
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), inset 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        .gift-box.wrong .box-face.front {
+            background: linear-gradient(135deg, #fca5a5, #f87171);
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.4), inset 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        .box-ground-shadow {
+            position: absolute;
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
             width: 120px;
-            height: 20px;
-            background: radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%);
+            height: 25px;
+            background: radial-gradient(ellipse, rgba(0,0,0,0.2) 0%, transparent 70%);
             border-radius: 50%;
             transition: all 0.3s ease;
             z-index: -1;
         }
 
-        .box-unit:hover:not(.disabled) .box-shadow {
+        .gift-box:hover:not(.disabled) .box-ground-shadow {
             width: 140px;
             opacity: 0.8;
         }
 
-        .box-unit.moving {
-            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100;
+        .marble {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 40%),
+                radial-gradient(circle at 50% 50%, #60a5fa 0%, #3b82f6 40%, #1e40af 80%, #1e3a8a 100%);
+            box-shadow: 
+                0 6px 20px rgba(59, 130, 246, 0.5),
+                0 12px 30px rgba(59, 130, 246, 0.3),
+                inset -3px -3px 10px rgba(0,0,0,0.3),
+                inset 3px 3px 10px rgba(255,255,255,0.4);
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 15;
         }
 
-        .box-unit.lifting {
-            animation: boxLift 0.6s ease-in-out;
+        .gift-box.open .marble {
+            transform: translateX(-50%) scale(1);
         }
 
-        @keyframes boxLift {
+        .gift-box.open .marble.bounce {
+            animation: marblePop 0.7s ease;
+        }
+
+        @keyframes marblePop {
+            0% { transform: translateX(-50%) scale(0) translateY(40px); }
+            40% { transform: translateX(-50%) scale(1.3) translateY(-20px); }
+            70% { transform: translateX(-50%) scale(0.9) translateY(5px); }
+            100% { transform: translateX(-50%) scale(1) translateY(0); }
+        }
+
+        .gift-box.lifting {
+            animation: liftBox 0.5s ease-in-out;
+        }
+
+        @keyframes liftBox {
             0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-40px) scale(1.05); }
+            50% { transform: translateY(-50px) scale(1.08); }
             100% { transform: translateY(0) scale(1); }
+        }
+
+        .box-badge {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #fff, #f1f5f9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            font-weight: 900;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 0 0 3px rgba(255,255,255,0.5);
+            z-index: 25;
+            transition: all 0.3s ease;
+        }
+
+        .gift-box.correct .box-badge {
+            background: linear-gradient(135deg, #6ee7b7, #34d399);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .gift-box.wrong .box-badge {
+            background: linear-gradient(135deg, #fca5a5, #f87171);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3), 0 0 0 3px rgba(239, 68, 68, 0.2);
         }
 
         .controls {
             display: flex;
-            gap: 16px;
-            margin-top: 40px;
+            gap: 14px;
+            margin-top: 35px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .btn {
-            padding: 14px 36px;
+            padding: 14px 32px;
             border: none;
             border-radius: 16px;
             font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: 800;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow);
@@ -520,8 +582,8 @@
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
         }
 
         .btn:hover::before {
@@ -529,25 +591,26 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            background: linear-gradient(135deg, #7c3aed, #db2777);
             color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
         }
 
         .btn-secondary {
-            background: var(--bg-solid);
-            color: var(--text);
-            border: 2px solid var(--accent);
+            background: rgba(255,255,255,0.9);
+            color: #7c3aed;
+            border: 2px solid #7c3aed;
         }
 
         .btn-secondary:hover {
-            background: var(--accent);
+            background: linear-gradient(135deg, #7c3aed, #db2777);
             color: white;
+            border-color: transparent;
             transform: translateY(-3px);
         }
 
@@ -561,10 +624,10 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            background: var(--bg-card);
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(20px);
-            padding: 16px 24px;
-            border-radius: 20px;
+            padding: 14px 20px;
+            border-radius: 16px;
             box-shadow: var(--shadow-lg);
             border: 1px solid rgba(255,255,255,0.6);
             z-index: 100;
@@ -577,30 +640,30 @@
         }
 
         .attempts-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-light);
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #64748b;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .attempts-dots {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .attempt-dot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-light), var(--accent));
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
             transition: all 0.3s ease;
         }
 
         .attempt-dot.used {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
+            background: linear-gradient(135deg, #f87171, #dc2626);
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
             transform: scale(0.85);
         }
@@ -614,8 +677,8 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -632,11 +695,11 @@
         }
 
         .modal-card {
-            background: var(--bg-solid);
-            padding: 48px 40px;
-            border-radius: 32px;
-            box-shadow: var(--shadow-lg), 0 0 60px rgba(99, 102, 241, 0.1);
-            max-width: 480px;
+            background: rgba(255,255,255,0.95);
+            padding: 40px 36px;
+            border-radius: 28px;
+            box-shadow: var(--shadow-lg), 0 0 60px rgba(124, 58, 237, 0.15);
+            max-width: 460px;
             width: 100%;
             text-align: center;
             transform: scale(0.85) translateY(20px);
@@ -654,46 +717,46 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-dark));
+            height: 5px;
+            background: linear-gradient(90deg, #f472b6, #8b5cf6, #3b82f6, #10b981, #fbbf24);
         }
 
         .modal-emoji {
-            font-size: 5rem;
-            margin-bottom: 20px;
+            font-size: 4.5rem;
+            margin-bottom: 16px;
             display: block;
             animation: emojiBounce 1s ease infinite;
         }
 
         @keyframes emojiBounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-12px); }
         }
 
         .modal-title {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--text);
             letter-spacing: -1px;
         }
 
         .modal-message {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 32px;
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 28px;
             line-height: 1.6;
         }
 
         .score-board {
             display: none;
-            background: var(--bg-card);
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(20px);
-            padding: 32px;
+            padding: 28px;
             border-radius: 24px;
             box-shadow: var(--shadow-lg);
             border: 1px solid rgba(255,255,255,0.6);
-            max-width: 500px;
+            max-width: 480px;
             width: 100%;
             margin: 20px auto;
             animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -704,9 +767,9 @@
         }
 
         .score-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
             color: var(--text);
             text-align: center;
             letter-spacing: -0.5px;
@@ -716,59 +779,54 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            padding: 12px 0;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .score-row:last-child {
             border-bottom: none;
-            margin-top: 10px;
-            padding-top: 20px;
-            border-top: 2px solid var(--accent);
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: var(--accent-dark);
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 2px solid #c4b5fd;
+            font-weight: 900;
+            font-size: 1.15rem;
+            color: #7c3aed;
         }
 
         .score-status {
-            font-weight: 700;
+            font-weight: 800;
             padding: 4px 12px;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        .score-status.correct { 
-            background: rgba(16, 185, 129, 0.1); 
-            color: var(--success); 
-        }
-        .score-status.wrong { 
-            background: rgba(239, 68, 68, 0.1); 
-            color: var(--danger); 
-        }
+        .score-status.correct { background: rgba(16, 185, 129, 0.12); color: #059669; }
+        .score-status.wrong { background: rgba(239, 68, 68, 0.12); color: #dc2626; }
 
         .final-message {
             text-align: center;
-            padding: 30px;
-            margin-top: 20px;
+            padding: 25px;
+            margin-top: 15px;
         }
 
         .final-emoji {
-            font-size: 4rem;
-            margin-bottom: 16px;
+            font-size: 3.5rem;
+            margin-bottom: 12px;
             animation: emojiBounce 1s ease infinite;
         }
 
         .final-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: -1px;
+            color: var(--text);
         }
 
         .final-text {
-            font-size: 1.1rem;
-            color: var(--text-light);
+            font-size: 1rem;
+            color: #64748b;
             line-height: 1.6;
         }
 
@@ -797,32 +855,87 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .dev-info {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 30px;
+            border-top: 2px solid rgba(124, 58, 237, 0.1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .dev-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .dev-name {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #7c3aed;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .dev-role {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .dev-tagline {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
-            .logo { font-size: 2.5rem; }
-            .box-unit { width: 120px; height: 160px; }
-            .box-body { height: 130px; }
-            .box-lid { height: 40px; font-size: 1.1rem; }
-            .boxes-wrap { gap: 20px; padding: 15px; }
+            .logo { font-size: 2.4rem; }
+            .gift-box { width: 110px; height: 110px; }
+            .box-body-3d { width: 110px; height: 95px; }
+            .box-face { width: 110px; height: 95px; }
+            .box-face.front { transform: translateZ(55px); }
+            .box-face.right { transform: rotateY(90deg) translateZ(55px); width: 110px; }
+            .box-face.left { transform: rotateY(-90deg) translateZ(55px); width: 110px; }
+            .box-face.bottom { transform: rotateX(-90deg) translateZ(42px); height: 110px; }
+            .box-lid-3d { width: 120px; height: 25px; top: -12px; left: -5px; }
+            .lid-face.top { transform: translateZ(55px); }
+            .lid-face.front-lid { transform: translateZ(55px); }
+            .box-badge { width: 28px; height: 28px; font-size: 0.8rem; top: -20px; }
+            .marble { width: 36px; height: 36px; bottom: 20px; }
+            .boxes-wrap { gap: 20px; min-height: 200px; }
             .modal-card { padding: 32px 24px; }
-            .modal-title { font-size: 1.8rem; }
-            .attempts-panel { top: 10px; left: 10px; padding: 12px 18px; }
+            .attempts-panel { top: 10px; left: 10px; padding: 12px 16px; }
         }
 
         @media (max-width: 480px) {
-            .box-unit { width: 90px; height: 130px; }
-            .box-body { height: 105px; }
-            .box-lid { height: 35px; font-size: 0.9rem; }
-            .box-number { width: 28px; height: 28px; font-size: 0.8rem; top: -12px; }
-            .boxes-wrap { gap: 12px; }
-            .btn { padding: 12px 24px; font-size: 0.9rem; }
+            .logo { font-size: 2rem; }
+            .gift-box { width: 85px; height: 85px; }
+            .box-body-3d { width: 85px; height: 75px; }
+            .box-face { width: 85px; height: 75px; }
+            .box-face.front { transform: translateZ(42px); }
+            .box-face.right { transform: rotateY(90deg) translateZ(42px); width: 85px; }
+            .box-face.left { transform: rotateY(-90deg) translateZ(42px); width: 85px; }
+            .box-face.bottom { transform: rotateX(-90deg) translateZ(35px); height: 85px; }
+            .box-lid-3d { width: 95px; height: 22px; top: -10px; left: -5px; }
+            .lid-face.top { transform: translateZ(42px); }
+            .lid-face.front-lid { transform: translateZ(42px); }
+            .box-badge { width: 24px; height: 24px; font-size: 0.7rem; top: -18px; }
+            .marble { width: 28px; height: 28px; bottom: 18px; }
+            .boxes-wrap { gap: 12px; padding: 15px; }
+            .btn { padding: 12px 24px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-mesh"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
     <div class="confetti-wrap" id="confettiWrap"></div>
 
     <div class="attempts-panel" id="attemptsPanel">
@@ -834,6 +947,7 @@
         <div class="header">
             <h1 class="logo">MARBLE HUNT</h1>
             <p class="tagline">Find the hidden marble. Trust your eyes... if you can.</p>
+            <div class="connection-status conn-local" id="connStatus">Connecting...</div>
         </div>
 
         <div class="level-track" id="levelTrack"></div>
@@ -850,13 +964,12 @@
             </div>
 
             <div class="status-text" id="statusText">Welcome! Click START to begin</div>
-
             <div class="boxes-wrap" id="boxesWrap"></div>
 
             <div class="controls" id="controls">
-                <button class="btn btn-primary" id="startBtn" onclick="startGame()">Start Game</button>
-                <button class="btn btn-secondary" id="nextBtn" onclick="nextLevel()" style="display:none;">Next Level</button>
-                <button class="btn btn-secondary" id="restartBtn" onclick="restartGame()" style="display:none;">Play Again</button>
+                <button class="btn btn-primary" id="startBtn" onclick="game.startGame()">Start Game</button>
+                <button class="btn btn-secondary" id="nextBtn" onclick="game.nextLevel()" style="display:none;">Next Level</button>
+                <button class="btn btn-secondary" id="restartBtn" onclick="game.restartGame()" style="display:none;">Play Again</button>
             </div>
         </div>
 
@@ -866,6 +979,13 @@
         </div>
 
         <div class="final-message" id="finalMessage" style="display:none;"></div>
+
+        <div class="dev-info" id="devInfo">
+            <div class="dev-label">Created By</div>
+            <div class="dev-name">Vishu</div>
+            <div class="dev-role">Student & Beginner Developer</div>
+            <div class="dev-tagline">Built with curiosity and code 💻</div>
+        </div>
     </div>
 
     <div class="modal-overlay" id="modalOverlay">
@@ -873,11 +993,143 @@
             <span class="modal-emoji" id="modalEmoji">🎉</span>
             <div class="modal-title" id="modalTitle">Well Done!</div>
             <div class="modal-message" id="modalMessage">You found the marble!</div>
-            <button class="btn btn-primary" onclick="closeModal()">Continue</button>
+            <button class="btn btn-primary" onclick="game.closeModal()">Continue</button>
         </div>
     </div>
 
     <script>
+        // ==================== API CLIENT ====================
+        class MarbleAPI {
+            constructor() {
+                this.baseURL = 'https://e-iota.vercel.app';
+                this.gameId = null;
+                this.localMode = false;
+                this.localState = null;
+            }
+
+            async fetchJSON(endpoint, options = {}) {
+                try {
+                    const url = this.baseURL + endpoint;
+                    const res = await fetch(url, {
+                        ...options,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...options.headers
+                        }
+                    });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const data = await res.json();
+                    return data.data || data;
+                } catch (err) {
+                    console.warn('Backend error, switching to local mode:', err.message);
+                    this.localMode = true;
+                    return null;
+                }
+            }
+
+            async start() {
+                const data = await this.fetchJSON('/api/game/start', { method: 'POST' });
+                if (data && data.gameId) {
+                    this.gameId = data.gameId;
+                    return data;
+                }
+                this.localMode = true;
+                this.localState = {
+                    gameId: 'local-' + Date.now(),
+                    currentLevel: 0,
+                    scores: [null, null, null, null],
+                    level4Attempts: 0,
+                    marblePosition: 0,
+                    status: 'active'
+                };
+                return {
+                    gameId: this.localState.gameId,
+                    level: 1,
+                    boxes: 3,
+                    attempts: 1,
+                    status: 'ready'
+                };
+            }
+
+            async shuffle() {
+                if (!this.localMode && this.gameId) {
+                    const data = await this.fetchJSON(`/api/game/${this.gameId}/shuffle`, { method: 'POST' });
+                    if (data) return data;
+                }
+                const cfg = CONFIG.levels[this.localState.currentLevel];
+                this.localState.marblePosition = Math.floor(Math.random() * cfg.boxes);
+                return { finalMarblePosition: this.localState.marblePosition };
+            }
+
+            async guess(boxIndex) {
+                if (!this.localMode && this.gameId) {
+                    const data = await this.fetchJSON(`/api/game/${this.gameId}/guess`, {
+                        method: 'POST',
+                        body: JSON.stringify({ boxIndex })
+                    });
+                    if (data) return data;
+                }
+                const lvl = this.localState.currentLevel;
+                const cfg = CONFIG.levels[lvl];
+                let result = { correct: false, trapTriggered: false, attemptsLeft: 0, gameOver: false, nextLevel: null };
+
+                if (lvl === 3) {
+                    this.localState.level4Attempts++;
+                    result.attemptsLeft = cfg.attempts - this.localState.level4Attempts;
+                    if (boxIndex === this.localState.marblePosition) {
+                        let newPos;
+                        do { newPos = Math.floor(Math.random() * cfg.boxes); }
+                        while (newPos === this.localState.marblePosition);
+                        this.localState.marblePosition = newPos;
+                        result.trapTriggered = true;
+                        result.correct = false;
+                    }
+                    if (this.localState.level4Attempts >= cfg.attempts) {
+                        result.gameOver = true;
+                        this.localState.scores[lvl] = false;
+                    }
+                } else {
+                    result.correct = (boxIndex === this.localState.marblePosition);
+                    this.localState.scores[lvl] = result.correct;
+                    result.gameOver = true;
+                    result.attemptsLeft = 0;
+                }
+                result.actualMarblePosition = this.localState.marblePosition;
+                return result;
+            }
+
+            async nextLevel() {
+                if (!this.localMode && this.gameId) {
+                    const data = await this.fetchJSON(`/api/game/${this.gameId}/next-level`, { method: 'POST' });
+                    if (data) return data;
+                }
+                this.localState.currentLevel++;
+                this.localState.level4Attempts = 0;
+                const cfg = CONFIG.levels[this.localState.currentLevel];
+                return {
+                    level: cfg.level,
+                    boxes: cfg.boxes,
+                    attempts: cfg.attempts,
+                    speed: cfg.speed,
+                    shuffleCount: cfg.shuffleCount
+                };
+            }
+
+            async finalScore() {
+                if (!this.localMode && this.gameId) {
+                    const data = await this.fetchJSON(`/api/game/${this.gameId}/final-score`);
+                    if (data) return data;
+                }
+                const total = this.localState.scores.filter(s => s === true).length;
+                let msg;
+                if (total >= 3) msg = "Well done, practice more";
+                else if (total === 2) msg = "This game is not for you";
+                else msg = "Go play ludo";
+                return { totalScore: total, maxScore: 4, message: msg, levelResults: this.localState.scores };
+            }
+        }
+
+        // ==================== GAME CONFIG ====================
         const CONFIG = {
             levels: [
                 { level: 1, boxes: 3, speed: 1500, shuffleCount: 5, attempts: 1, timeLimit: 10 },
@@ -902,475 +1154,300 @@
             }
         };
 
-        let currentLevel = 0;
-        let scores = [null, null, null, null];
-        let marblePos = 0;
-        let isShuffling = false;
-        let canGuess = false;
-        let level4Attempts = 0;
-        let timerInterval = null;
-        let gameActive = false;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderLevelTrack();
-        });
-
-        function renderLevelTrack() {
-            const track = document.getElementById('levelTrack');
-            track.innerHTML = '';
-            CONFIG.levels.forEach((lvl, idx) => {
-                const pill = document.createElement('div');
-                pill.className = 'level-pill';
-                pill.textContent = 'Level ' + lvl.level;
-                if (idx === currentLevel && gameActive) pill.classList.add('active');
-                else if (scores[idx] === true) pill.classList.add('completed');
-                else if (scores[idx] === false) pill.classList.add('failed');
-                else if (idx > currentLevel || !gameActive) pill.classList.add('locked');
-                track.appendChild(pill);
-            });
-        }
-
-        function startGame() {
-            currentLevel = 0;
-            scores = [null, null, null, null];
-            gameActive = true;
-            document.getElementById('scoreBoard').classList.remove('active');
-            document.getElementById('finalMessage').style.display = 'none';
-            document.getElementById('startBtn').style.display = 'none';
-            renderLevelTrack();
-            startLevel();
-        }
-
-        function startLevel() {
-            const cfg = CONFIG.levels[currentLevel];
-            canGuess = false;
-            isShuffling = false;
-            level4Attempts = 0;
-            
-            const panel = document.getElementById('attemptsPanel');
-            if (currentLevel === 3) {
-                panel.classList.add('active');
-                renderAttemptsDots();
-            } else {
-                panel.classList.remove('active');
+        // ==================== GAME CONTROLLER ====================
+        class GameController {
+            constructor() {
+                this.api = new MarbleAPI();
+                this.currentLevel = 0;
+                this.scores = [null, null, null, null];
+                this.marblePos = 0;
+                this.isShuffling = false;
+                this.canGuess = false;
+                this.level4Attempts = 0;
+                this.timerInterval = null;
+                this.gameActive = false;
+                this.gameId = null;
+                this.boxElements = [];
             }
-            
-            renderLevelTrack();
-            renderBoxes();
-            
-            setTimeout(() => {
-                showMarble();
-                setTimeout(() => {
-                    hideMarble();
-                    setTimeout(() => shuffleBoxes(), 600);
-                }, 1800);
-            }, 400);
-        }
 
-        function renderBoxes() {
-            const wrap = document.getElementById('boxesWrap');
-            const cfg = CONFIG.levels[currentLevel];
-            wrap.innerHTML = '';
-            
-            for (let i = 0; i < cfg.boxes; i++) {
-                const unit = document.createElement('div');
-                unit.className = 'box-unit';
-                unit.dataset.index = i;
-                unit.onclick = function() { handleGuess(i); };
-                
-                const shadow = document.createElement('div');
-                shadow.className = 'box-shadow';
-                
-                const number = document.createElement('div');
-                number.className = 'box-number';
-                number.textContent = i + 1;
-                
-                const lid = document.createElement('div');
-                lid.className = 'box-lid';
-                
-                const body = document.createElement('div');
-                body.className = 'box-body';
-                
-                const marble = document.createElement('div');
-                marble.className = 'marble';
-                marble.id = 'marble-' + i;
-                
-                unit.appendChild(shadow);
-                unit.appendChild(number);
-                unit.appendChild(lid);
-                unit.appendChild(body);
-                unit.appendChild(marble);
-                wrap.appendChild(unit);
+            setStatus(type, msg) {
+                const el = document.getElementById('statusText');
+                el.classList.remove('animate');
+                void el.offsetWidth;
+                el.textContent = msg || CONFIG.messages[type] || '';
+                el.classList.add('animate');
             }
-            
-            marblePos = Math.floor(Math.random() * cfg.boxes);
-        }
 
-        function showMarble() {
-            setStatus(CONFIG.messages.start);
-            const unit = document.querySelectorAll('.box-unit')[marblePos];
-            unit.classList.add('open');
-            document.getElementById('marble-' + marblePos).classList.add('bounce');
-        }
+            updateConnStatus(status) {
+                const el = document.getElementById('connStatus');
+                el.className = 'connection-status conn-' + status;
+                if (status === 'online') el.textContent = 'Backend Connected';
+                else if (status === 'offline') el.textContent = 'Backend Offline - Local Mode';
+                else if (status === 'local') el.textContent = 'Local Mode';
+                else el.textContent = 'Connecting...';
+            }
 
-        function hideMarble() {
-            document.querySelectorAll('.box-unit').forEach(function(u) { u.classList.remove('open'); });
-        }
+            renderLevelTrack() {
+                const track = document.getElementById('levelTrack');
+                track.innerHTML = '';
+                CONFIG.levels.forEach((lvl, idx) => {
+                    const pill = document.createElement('div');
+                    pill.className = 'level-pill';
+                    pill.textContent = 'Level ' + lvl.level;
+                    if (idx === this.currentLevel && this.gameActive) pill.classList.add('active');
+                    else if (this.scores[idx] === true) pill.classList.add('completed');
+                    else if (this.scores[idx] === false) pill.classList.add('failed');
+                    else if (idx > this.currentLevel || !this.gameActive) pill.classList.add('locked');
+                    track.appendChild(pill);
+                });
+            }
 
-        function shuffleBoxes() {
-            isShuffling = true;
-            setStatus(CONFIG.messages.shuffling);
-            
-            const cfg = CONFIG.levels[currentLevel];
-            const units = Array.from(document.querySelectorAll('.box-unit'));
-            let count = 0;
-            
-            const interval = setInterval(() => {
-                const idx1 = Math.floor(Math.random() * units.length);
-                let idx2 = Math.floor(Math.random() * units.length);
-                while (idx2 === idx1) idx2 = Math.floor(Math.random() * units.length);
-                
-                const box1 = units[idx1];
-                const box2 = units[idx2];
-                
-                const rect1 = box1.getBoundingClientRect();
-                const rect2 = box2.getBoundingClientRect();
-                const parentRect = document.getElementById('boxesWrap').getBoundingClientRect();
-                
-                const pos1 = rect1.left - parentRect.left;
-                const pos2 = rect2.left - parentRect.left;
-                
-                box1.classList.add('lifting');
-                box2.classList.add('lifting');
-                
-                setTimeout(() => {
-                    box1.style.transform = 'translateX(' + (pos2 - pos1) + 'px)';
-                    box2.style.transform = 'translateX(' + (pos1 - pos2) + 'px)';
-                }, 100);
-                
-                setTimeout(() => {
-                    box1.style.transform = '';
-                    box2.style.transform = '';
-                    box1.classList.remove('lifting');
-                    box2.classList.remove('lifting');
-                    
-                    const parent = box1.parentNode;
-                    const next = box2.nextSibling;
-                    parent.insertBefore(box2, box1);
-                    parent.insertBefore(box1, next);
-                    
-                    marblePos = Math.floor(Math.random() * cfg.boxes);
-                }, cfg.speed - 100);
-                
-                count++;
-                if (count >= cfg.shuffleCount) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        isShuffling = false;
-                        canGuess = true;
-                        setStatus(CONFIG.messages.guess);
-                        startTimer();
-                    }, cfg.speed);
-                }
-            }, cfg.speed);
-        }
+            async startGame() {
+                this.updateConnStatus('local');
+                const data = await this.api.start();
+                if (!this.api.localMode) this.updateConnStatus('online');
+                else this.updateConnStatus('offline');
 
-        function startTimer() {
-            const cfg = CONFIG.levels[currentLevel];
-            const wrap = document.getElementById('timerWrap');
-            const bar = document.getElementById('timerBar');
-            const text = document.getElementById('timerText');
-            
-            wrap.classList.add('active');
-            let timeLeft = 100;
-            bar.style.width = '100%';
-            bar.className = 'timer-bar-fill';
-            
-            clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                timeLeft -= 1;
-                bar.style.width = timeLeft + '%';
-                text.textContent = Math.ceil(timeLeft / 100 * cfg.timeLimit) + 's';
-                
-                if (timeLeft <= 30) bar.className = 'timer-bar-fill danger';
-                else if (timeLeft <= 60) bar.className = 'timer-bar-fill warning';
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    handleTimeout();
-                }
-            }, cfg.timeLimit * 10);
-        }
+                this.gameId = data.gameId;
+                this.currentLevel = (data.level || 1) - 1;
+                this.scores = [null, null, null, null];
+                this.gameActive = true;
 
-        function handleTimeout() {
-            if (!canGuess) return;
-            canGuess = false;
-            document.getElementById('timerWrap').classList.remove('active');
-            scores[currentLevel] = false;
-            
-            setStatus(CONFIG.messages.timeout);
-            showModal('⏰', "Time's Up!", "Even a turtle is faster than you!");
-            document.getElementById('nextBtn').style.display = 'inline-block';
-        }
+                document.getElementById('scoreBoard').classList.remove('active');
+                document.getElementById('finalMessage').style.display = 'none';
+                document.getElementById('startBtn').style.display = 'none';
+                document.getElementById('devInfo').style.display = 'none';
 
-        function handleGuess(index) {
-            if (!canGuess || isShuffling) return;
-            
-            clearInterval(timerInterval);
-            document.getElementById('timerWrap').classList.remove('active');
-            
-            const cfg = CONFIG.levels[currentLevel];
-            const units = document.querySelectorAll('.box-unit');
-            
-            if (currentLevel === 3) {
-                level4Attempts++;
-                renderAttemptsDots();
-                
-                if (index === marblePos) {
-                    let newPos;
-                    do { newPos = Math.floor(Math.random() * cfg.boxes); }
-                    while (newPos === marblePos);
-                    marblePos = newPos;
-                    
-                    units[index].classList.add('open', 'wrong');
-                    setStatus(CONFIG.messages.level4Trap);
-                    
-                    if (level4Attempts >= 3) {
-                        canGuess = false;
-                        scores[currentLevel] = false;
-                        setTimeout(() => {
-                            showModal('😈', "Trapped!", "Did you really think Level 4 would be that easy?");
-                            document.getElementById('nextBtn').style.display = 'inline-block';
-                        }, 1200);
-                    } else {
-                        setTimeout(() => {
-                            units[index].classList.remove('open', 'wrong');
-                            setStatus('Try again! ' + (3 - level4Attempts) + ' left...');
-                        }, 1500);
-                    }
-                    return;
+                this.renderLevelTrack();
+                this.startLevel();
+            }
+
+            async startLevel() {
+                const cfg = CONFIG.levels[this.currentLevel];
+                this.canGuess = false;
+                this.isShuffling = false;
+                this.level4Attempts = 0;
+
+                const panel = document.getElementById('attemptsPanel');
+                if (this.currentLevel === 3) {
+                    panel.classList.add('active');
+                    this.renderAttemptsDots();
                 } else {
-                    units[index].classList.add('open', 'wrong');
-                    
-                    if (level4Attempts >= 3) {
-                        canGuess = false;
-                        scores[currentLevel] = false;
-                        setStatus(CONFIG.messages.wrong);
-                        
+                    panel.classList.remove('active');
+                }
+
+                this.renderLevelTrack();
+                this.renderBoxes();
+
+                const shuffleData = await this.api.shuffle();
+                this.marblePos = shuffleData.finalMarblePosition || Math.floor(Math.random() * cfg.boxes);
+
+                setTimeout(() => {
+                    this.showMarble();
+                    setTimeout(() => {
+                        this.hideMarble();
+                        setTimeout(() => this.shuffleBoxes(), 600);
+                    }, 1800);
+                }, 400);
+            }
+
+            renderBoxes() {
+                const wrap = document.getElementById('boxesWrap');
+                const cfg = CONFIG.levels[this.currentLevel];
+                wrap.innerHTML = '';
+                this.boxElements = [];
+
+                for (let i = 0; i < cfg.boxes; i++) {
+                    const box = document.createElement('div');
+                    box.className = 'gift-box';
+                    box.dataset.index = i;
+                    box.dataset.color = i % 5;
+                    box.onclick = () => this.handleGuess(i);
+
+                    const badge = document.createElement('div');
+                    badge.className = 'box-badge';
+                    badge.textContent = i + 1;
+
+                    const shadow = document.createElement('div');
+                    shadow.className = 'box-ground-shadow';
+
+                    const body = document.createElement('div');
+                    body.className = 'box-body-3d';
+
+                    const front = document.createElement('div');
+                    front.className = 'box-face front';
+                    const bow = document.createElement('div');
+                    bow.className = 'box-bow';
+                    const bowCenter = document.createElement('div');
+                    bowCenter.className = 'box-bow-center';
+                    bow.appendChild(bowCenter);
+                    front.appendChild(bow);
+
+                    const right = document.createElement('div');
+                    right.className = 'box-face right';
+                    const left = document.createElement('div');
+                    left.className = 'box-face left';
+                    const bottom = document.createElement('div');
+                    bottom.className = 'box-face bottom';
+
+                    body.appendChild(front);
+                    body.appendChild(right);
+                    body.appendChild(left);
+                    body.appendChild(bottom);
+
+                    const lid = document.createElement('div');
+                    lid.className = 'box-lid-3d';
+                    const lidTop = document.createElement('div');
+                    lidTop.className = 'lid-face top';
+                    const lidFront = document.createElement('div');
+                    lidFront.className = 'lid-face front-lid';
+                    lid.appendChild(lidTop);
+                    lid.appendChild(lidFront);
+
+                    const marble = document.createElement('div');
+                    marble.className = 'marble';
+                    marble.id = 'marble-' + i;
+
+                    box.appendChild(shadow);
+                    box.appendChild(badge);
+                    box.appendChild(body);
+                    box.appendChild(lid);
+                    box.appendChild(marble);
+                    wrap.appendChild(box);
+                    this.boxElements.push(box);
+                }
+            }
+
+            showMarble() {
+                this.setStatus('start');
+                const box = this.boxElements[this.marblePos];
+                if (box) box.classList.add('open');
+                const marble = document.getElementById('marble-' + this.marblePos);
+                if (marble) marble.classList.add('bounce');
+            }
+
+            hideMarble() {
+                this.boxElements.forEach(b => b.classList.remove('open'));
+            }
+
+            shuffleBoxes() {
+                this.isShuffling = true;
+                this.setStatus('shuffling');
+
+                const cfg = CONFIG.levels[this.currentLevel];
+                const units = this.boxElements;
+                let count = 0;
+
+                const interval = setInterval(() => {
+                    const idx1 = Math.floor(Math.random() * units.length);
+                    let idx2 = Math.floor(Math.random() * units.length);
+                    while (idx2 === idx1) idx2 = Math.floor(Math.random() * units.length);
+
+                    const box1 = units[idx1];
+                    const box2 = units[idx2];
+
+                    const rect1 = box1.getBoundingClientRect();
+                    const rect2 = box2.getBoundingClientRect();
+                    const parentRect = document.getElementById('boxesWrap').getBoundingClientRect();
+
+                    const pos1 = rect1.left - parentRect.left;
+                    const pos2 = rect2.left - parentRect.left;
+
+                    box1.classList.add('lifting');
+                    box2.classList.add('lifting');
+
+                    setTimeout(() => {
+                        box1.style.transform = 'translateX(' + (pos2 - pos1) + 'px)';
+                        box2.style.transform = 'translateX(' + (pos1 - pos2) + 'px)';
+                    }, 100);
+
+                    setTimeout(() => {
+                        box1.style.transform = '';
+                        box2.style.transform = '';
+                        box1.classList.remove('lifting');
+                        box2.classList.remove('lifting');
+
+                        const parent = box1.parentNode;
+                        const next = box2.nextSibling;
+                        parent.insertBefore(box2, box1);
+                        parent.insertBefore(box1, next);
+                    }, cfg.speed - 100);
+
+                    count++;
+                    if (count >= cfg.shuffleCount) {
+                        clearInterval(interval);
                         setTimeout(() => {
-                            units[marblePos].classList.add('open', 'correct');
-                            document.getElementById('marble-' + marblePos).classList.add('bounce');
-                        }, 500);
-                        
-                        setTimeout(() => {
-                            showModal('😵', "Failed!", "Level 4 conquered you!");
-                            document.getElementById('nextBtn').style.display = 'inline-block';
-                        }, 2000);
-                    } else {
-                        setTimeout(() => {
-                            units[index].classList.remove('open', 'wrong');
-                            setStatus('Wrong! ' + (3 - level4Attempts) + ' left...');
-                        }, 1000);
+                            this.isShuffling = false;
+                            this.canGuess = true;
+                            this.setStatus('guess');
+                            this.startTimer();
+                        }, cfg.speed);
                     }
-                    return;
-                }
+                }, cfg.speed);
             }
-            
-            canGuess = false;
-            units[index].classList.add('open');
-            
-            if (index === marblePos) {
-                scores[currentLevel] = true;
-                units[index].classList.add('correct');
-                document.getElementById('marble-' + index).classList.add('bounce');
-                setStatus(CONFIG.messages.correct);
-                createConfetti();
-                
-                setTimeout(() => {
-                    showModal('🎯', "Bullseye!", "Your eyes are sharper than a hawk!");
-                    document.getElementById('nextBtn').style.display = 'inline-block';
-                }, 1500);
-            } else {
-                scores[currentLevel] = false;
-                units[index].classList.add('wrong', 'shaking');
-                setStatus(CONFIG.messages.wrong);
-                
-                setTimeout(() => {
-                    units[marblePos].classList.add('open', 'correct');
-                    document.getElementById('marble-' + marblePos).classList.add('bounce');
-                }, 500);
-                
-                setTimeout(() => {
-                    showModal('❌', "Wrong!", "My grandma guesses better than you!");
-                    document.getElementById('nextBtn').style.display = 'inline-block';
-                }, 2000);
+
+            startTimer() {
+                const cfg = CONFIG.levels[this.currentLevel];
+                const wrap = document.getElementById('timerWrap');
+                const bar = document.getElementById('timerBar');
+                const text = document.getElementById('timerText');
+
+                wrap.classList.add('active');
+                let timeLeft = 100;
+                bar.style.width = '100%';
+                bar.className = 'timer-bar-fill';
+
+                clearInterval(this.timerInterval);
+                this.timerInterval = setInterval(() => {
+                    timeLeft -= 1;
+                    bar.style.width = timeLeft + '%';
+                    text.textContent = Math.ceil(timeLeft / 100 * cfg.timeLimit) + 's';
+
+                    if (timeLeft <= 30) bar.className = 'timer-bar-fill danger';
+                    else if (timeLeft <= 60) bar.className = 'timer-bar-fill warning';
+
+                    if (timeLeft <= 0) {
+                        clearInterval(this.timerInterval);
+                        this.handleTimeout();
+                    }
+                }, cfg.timeLimit * 10);
             }
-        }
 
-        function renderAttemptsDots() {
-            const dots = document.getElementById('attemptsDots');
-            dots.innerHTML = '';
-            for (let i = 0; i < 3; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'attempt-dot';
-                if (i < level4Attempts) dot.classList.add('used');
-                dots.appendChild(dot);
+            handleTimeout() {
+                if (!this.canGuess) return;
+                this.canGuess = false;
+                document.getElementById('timerWrap').classList.remove('active');
+                this.scores[this.currentLevel] = false;
+                this.setStatus(null, "Time's up! You were too slow! 🐌");
+                this.showModal('⏰', "Time's Up!", "Even a turtle is faster than you!");
+                document.getElementById('nextBtn').style.display = 'inline-block';
             }
-        }
 
-        function nextLevel() {
-            closeModal();
-            document.getElementById('nextBtn').style.display = 'none';
-            currentLevel++;
-            
-            if (currentLevel >= CONFIG.levels.length) {
-                showFinalResults();
-                return;
-            }
-            
-            renderLevelTrack();
-            startLevel();
-        }
+            async handleGuess(index) {
+                if (!this.canGuess || this.isShuffling) return;
 
-        function showFinalResults() {
-            document.getElementById('gameArea').style.display = 'none';
-            document.getElementById('attemptsPanel').classList.remove('active');
-            
-            const board = document.getElementById('scoreBoard');
-            const content = document.getElementById('scoreContent');
-            let html = '';
-            let total = 0;
-            
-            CONFIG.levels.forEach((lvl, idx) => {
-                let status = '⏳ Pending';
-                let statusClass = '';
-                if (scores[idx] === true) {
-                    status = '✅ Correct';
-                    statusClass = 'correct';
-                    total++;
-                } else if (scores[idx] === false) {
-                    status = '❌ Wrong';
-                    statusClass = 'wrong';
-                }
-                html += '<div class="score-row"><span>Level ' + lvl.level + '</span><span class="score-status ' + statusClass + '">' + status + '</span></div>';
-            });
-            
-            html += '<div class="score-row"><span>Total Score</span><span>' + total + ' / 4</span></div>';
-            
-            content.innerHTML = html;
-            board.classList.add('active');
-            
-            const final = document.getElementById('finalMessage');
-            const cfg = CONFIG.messages.final;
-            let result;
-            if (total >= 3) result = cfg.score3;
-            else if (total === 2) result = cfg.score2;
-            else if (total === 1) result = cfg.score1;
-            else result = cfg.score0;
-            
-            final.innerHTML = '<div class="final-emoji">' + result.emoji + '</div><div class="final-title">' + result.title + '</div><div class="final-text">' + result.text + '</div>';
-            final.style.display = 'block';
-            
-            document.getElementById('restartBtn').style.display = 'inline-block';
-            
-            if (total >= 3) createConfetti();
-        }
+                clearInterval(this.timerInterval);
+                document.getElementById('timerWrap').classList.remove('active');
 
-        function restartGame() {
-            closeModal();
-            currentLevel = 0;
-            scores = [null, null, null, null];
-            gameActive = false;
-            
-            document.getElementById('gameArea').style.display = 'flex';
-            document.getElementById('scoreBoard').classList.remove('active');
-            document.getElementById('finalMessage').style.display = 'none';
-            document.getElementById('restartBtn').style.display = 'none';
-            document.getElementById('startBtn').style.display = 'inline-block';
-            document.getElementById('boxesWrap').innerHTML = '';
-            document.getElementById('attemptsPanel').classList.remove('active');
-            document.getElementById('timerWrap').classList.remove('active');
-            
-            setStatus("Welcome! Click START to begin");
-            renderLevelTrack();
-        }
+                const cfg = CONFIG.levels[this.currentLevel];
+                const units = this.boxElements;
 
-        function showModal(emoji, title, message) {
-            document.getElementById('modalEmoji').textContent = emoji;
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalMessage').textContent = message;
-            document.getElementById('modalOverlay').classList.add('active');
-        }
+                const result = await this.api.guess(index);
+                const isCorrect = result.correct;
+                const isTrap = result.trapTriggered;
+                const actualPos = result.actualMarblePosition !== undefined ? result.actualMarblePosition : this.marblePos;
 
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
+                if (this.currentLevel === 3) {
+                    this.level4Attempts++;
+                    this.renderAttemptsDots();
 
-        function setStatus(msg) {
-            const el = document.getElementById('statusText');
-            el.classList.remove('animate');
-            void el.offsetWidth;
-            el.textContent = msg;
-            el.classList.add('animate');
-        }
+                    if (isTrap || (index === actualPos && !isCorrect)) {
+                        this.marblePos = actualPos;
+                        units[index].classList.add('open', 'wrong');
+                        this.setStatus('level4Trap');
 
-        function createConfetti() {
-            const container = document.getElementById('confettiWrap');
-            const colors = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#3b82f6'];
-            
-            for (let i = 0; i < 60; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'confetti-piece';
-                piece.style.left = Math.random() * 100 + '%';
-                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-                piece.style.width = (6 + Math.random() * 10) + 'px';
-                piece.style.height = (6 + Math.random() * 10) + 'px';
-                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                piece.style.animationDelay = Math.random() * 2 + 's';
-                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
-                container.appendChild(piece);
-                setTimeout(() => piece.remove(), 4000);
-            }
-        }
-// ==================== DEVELOPER INFO ====================
-(function addDevInfo() {
-    const devSection = document.createElement('div');
-    devSection.id = 'devInfo';
-    devSection.innerHTML = `
-        <div style="
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(99, 102, 241, 0.15);
-        ">
-            <div style="
-                font-size: 0.75rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                color: #94a3b8;
-                margin-bottom: 12px;
-            ">Created By</div>
-            <div style="
-                font-size: 1.3rem;
-                font-weight: 800;
-                color: #1e293b;
-                margin-bottom: 6px;
-            ">Vishu</div>
-            <div style="
-                font-size: 0.9rem;
-                color: #64748b;
-                font-weight: 400;
-            ">Student & Beginner Developer</div>
-            <div style="
-                margin-top: 12px;
-                font-size: 0.75rem;
-                color: #cbd5e1;
-            ">Built with curiosity and code 💻</div>
-        </div>
-    `;
-    document.querySelector('.game-wrap').appendChild(devSection);
-})();
-    </script>
-</body>
-</html>
+                        if (this.level4Attempts >= cfg.attempts || result.gameOver) {
+                            this.canGuess = false;
+                            this.scores[this.currentLevel] = false;
+                            setTimeout(() => {
+                                this.showModal('😈', "Trapped!
